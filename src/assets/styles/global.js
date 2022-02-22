@@ -5,7 +5,7 @@ export default createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Merriweather', serif;
+    font-family: 'Sora', sans-serif;
   }
 
   html, body {
@@ -14,7 +14,7 @@ export default createGlobalStyle`
 
   a {
     text-decoration: none;
-    color: ${({ theme }) => theme.colors.primary.dark};
+    color: ${({ theme }) => theme.colors.primary.main};
 
     :visited {
       color: none;

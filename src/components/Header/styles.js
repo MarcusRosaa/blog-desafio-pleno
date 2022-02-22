@@ -1,22 +1,16 @@
 import styled from 'styled-components';
 
 export const Container = styled.header`
-  width: 100vw;
-  padding: 0px 3vw;
-  position: fixed;
-  width: 100vw;
-  height: 64px;
-  left: 0;
-  top: 0;
+  width: 100%;
+  padding: 48px 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  background: ${({ theme }) => theme.colors.primary.lighter};
-`;
 
-export const Navigation = styled.nav`
-
-  a:not(:first-of-type) {
-    margin-left: 20px;
+  h2 {
+    width: 100%;
+    text-align: center;
+    color:  ${({ theme }) => theme.colors.gray.dark};
   }
 `;

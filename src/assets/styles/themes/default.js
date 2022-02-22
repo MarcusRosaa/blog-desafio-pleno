@@ -2,14 +2,14 @@ export default {
   colors: {
     background: '#f6f5fc',
     primary: {
-      lighter: '#e0e3ff',
+      lighter: '#cac5e8',
       light: '#6674f4',
-      main: '#5061fc',
+      main: '#5061FC',
       dark: '#3346f0',
     },
     gray: {
       dark: '#222',
-      light: '#bcbcbc',
+      light: '#8c8c8c',
     },
     danger: {
       light: '#f97171',

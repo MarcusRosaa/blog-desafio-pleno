@@ -95,14 +95,15 @@ export const Card = styled.div`
       color: ${({ theme }) => theme.colors.gray.dark};
 
 
-      strong {
+      h2 {
         width: 100%;
+        font-family: 'Times New Roman', Times, serif
       }
 
       small {
         font-style: italic;
         font-size: 14px;
-        color: ${({ theme }) => theme.colors.gray.dark};
+        color: ${({ theme }) => theme.colors.gray.lighter};
         text-transform: capitalize;
         margin-top: 4px;
       }
@@ -112,6 +113,13 @@ export const Card = styled.div`
       display: block;
       margin-top: 4px;
       color: #8c8c8c;
+      height: fit-content;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
     }
   }
 

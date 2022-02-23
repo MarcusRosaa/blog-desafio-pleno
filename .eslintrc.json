@@ -26,6 +26,7 @@
       "max-len": "off",
       "jsx-a11y/label-has-associated-control": "off",
       "react/jsx-no-bind": "off",
+      "class-methods-use-this": "off",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn"
     }

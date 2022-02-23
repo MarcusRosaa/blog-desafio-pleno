@@ -7,6 +7,7 @@ export const Container = styled.header`
     display: flex;
     align-items: center;
     margin-bottom: 8px;
+    width: fit-content;
 
     img {
       margin-right: 8px;

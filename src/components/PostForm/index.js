@@ -1,9 +1,14 @@
-import { useRef, useState } from 'react';
+import {
+  useRef, useState,
+} from 'react';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 import propTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import uuidGenerator from '../../utils/uuid';
+
 import { Form, ButtonContainer } from './styles';
 import FormGroup from '../FormGroup';
 
@@ -12,11 +17,15 @@ import { Input } from '../Input';
 import { Button } from '../Button';
 
 import useErrors from '../../hooks/useErrors';
+import PostsService from '../../services/PostsService';
 
-export default function PostForm({ buttonLabel }) {
-  const [bodyText, setBodyText] = useState('');
-  const title = useRef('');
-  const author = useRef('');
+export default function PostForm({
+  buttonLabel, submitFunction, currentPost, postId,
+}) {
+  const [bodyText, setBodyText] = useState(currentPost?.body_text || '');
+  const title = useRef(currentPost?.title || '');
+  const author = useRef(currentPost?.author || '');
+  const navigate = useNavigate();
 
   const {
     setError, removeError, getErrorMessageByFieldName, errors,
@@ -55,40 +64,38 @@ export default function PostForm({ buttonLabel }) {
     }
   }
 
-  async function handleSubmit(event) {
+  const handleCreatePost = async (event) => {
     event.preventDefault();
-
-    const uuidGenerator = () => {
-      const uuid = () => Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-
-      return `${uuid()}-${uuid()}-${uuid()}-${uuid()}`;
-    };
-
-    const id = uuidGenerator();
+    const uuid = await uuidGenerator();
 
     const newPost = {
       author: author.current.value,
       title: title.current.value,
       body_text: bodyText,
-      author_id: id,
+      author_id: uuid,
+    };
+    await PostsService.createPost(newPost);
+    navigate('/');
+  };
+
+  const handleEditPost = async (event) => {
+    event.preventDefault();
+
+    const newPost = {
+      author: author.current.value,
+      title: title.current.value,
+      body_text: bodyText,
+      author_id: postId,
     };
 
-    await fetch(
-      'http://localhost:3001/posts',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newPost),
-      },
-    );
-  }
-
+    await PostsService.editPost(postId, newPost);
+    navigate('/');
+  };
   return (
-    <Form onSubmit={handleSubmit} noValidate>
+    <Form
+      onSubmit={submitFunction === 'create' ? handleCreatePost : handleEditPost}
+      noValidate
+    >
       <FormGroup error={getErrorMessageByFieldName('title')}>
         <label htmlFor="title">Título *</label>
         <Input
@@ -97,6 +104,7 @@ export default function PostForm({ buttonLabel }) {
           name="title"
           type="text"
           placeholder="Pense em algo chamativo..."
+          defaultValue={currentPost ? title.current : title.current.value}
           ref={title}
           onChange={handleTitleChange}
         />
@@ -110,6 +118,7 @@ export default function PostForm({ buttonLabel }) {
           name="author"
           type="text"
           placeholder="Autor da notícia..."
+          defaultValue={currentPost ? author.current : author.current.value}
           ref={author}
           onChange={handleAuthorChange}
         />
@@ -138,4 +147,30 @@ export default function PostForm({ buttonLabel }) {
 
 PostForm.propTypes = {
   buttonLabel: propTypes.string.isRequired,
+};
+
+PostForm.propTypes = {
+  submitFunction: propTypes.string.isRequired,
+};
+
+PostForm.propTypes = {
+  currentPost: propTypes.shape({
+    author: propTypes.string,
+    author_id: propTypes.string,
+    body_text: propTypes.string,
+    id: propTypes.number,
+    title: propTypes.string,
+  }),
+};
+
+PostForm.defaultProps = {
+  currentPost: null,
+};
+
+PostForm.propTypes = {
+  postId: propTypes.string,
+};
+
+PostForm.defaultProps = {
+  postId: null,
 };

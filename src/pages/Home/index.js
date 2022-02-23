@@ -1,46 +1,46 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import { Link } from 'react-router-dom';
-import { useEffect, useState, useMemo } from 'react';
 import {
-  Container, Header, ListContainer, Card, InputSearchContainer, Navigation,
+  useEffect, useState, useMemo, useCallback,
+} from 'react';
+import {
+  Container, Header, ListContainer, Card, InputSearchContainer, Navigation, EmptyListContainer, SearchNotFoundContainer,
 } from './styles';
 
 import Loader from '../../components/Loader';
 
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
-import delay from '../../utils/delay';
+import PostsService from '../../services/PostsService';
+import emptyBox from '../../assets/images/icons/empty-box.svg';
+import postsNotFound from '../../assets/images/icons/no-posts-found.svg';
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  const filteredContacts = useMemo(() => posts.filter((post) => (
+  const filteredPosts = useMemo(() => posts.filter((post) => (
     post.title.toLowerCase().includes(searchTerm.toLowerCase())
   )), [posts, searchTerm]);
 
-  useEffect(() => {
-    async function loadPosts() {
-      try {
-        setIsLoading(true);
+  const loadPosts = useCallback(async () => {
+    try {
+      setIsLoading(true);
 
-        const response = await fetch(
-          'http://localhost:3001/posts',
-        );
+      const PostsList = await PostsService.listPosts();
 
-        await delay(500);
-
-        const json = await response.json();
-        setPosts(json);
-      } catch (error) {
-        console.log('error', error);
-      } finally {
-        setIsLoading(false);
-      }
+      setPosts(PostsList);
+    } catch (error) {
+      console.log('error', error);
+    } finally {
+      setIsLoading(false);
     }
-
-    loadPosts();
   }, []);
+
+  useEffect(() => {
+    loadPosts();
+  }, [loadPosts]);
 
   function convertToPlain(html) {
     const temDivElement = document.createElement('div');
@@ -53,33 +53,65 @@ export default function Home() {
     setSearchTerm(event.target.value);
   }
 
+  async function handleDelete(event, id) {
+    event.preventDefault();
+
+    await PostsService.deletePost(id);
+    loadPosts();
+  }
+
   return (
     <Container>
       <Loader isLoading={isLoading} />
 
-      <InputSearchContainer>
-        <input
-          value={searchTerm}
-          type="text"
-          placeholder="Pesquise pelo título.."
-          onChange={handleChangeSearchTerm}
+      {posts.length > 0 && (
+        <InputSearchContainer>
+          <input
+            value={searchTerm}
+            type="text"
+            placeholder="Pesquise pelo título.."
+            onChange={handleChangeSearchTerm}
+          />
+        </InputSearchContainer>
+      )}
 
-        />
-      </InputSearchContainer>
-
-      <Header>
-        <strong>
-          {filteredContacts.length}
-          {' '}
-          {filteredContacts.length === 1 ? 'contato' : 'contatos'}
-        </strong>
+      <Header justifyContent={posts.length > 0 ? 'space-between' : 'center'}>
+        {posts.length > 0 && (
+          <strong>
+            {filteredPosts.length}
+            {' '}
+            {filteredPosts.length === 1 ? 'contato' : 'contatos'}
+          </strong>
+        )}
         <Navigation>
           <Link to="new">Criar Notícia</Link>
         </Navigation>
       </Header>
 
       <ListContainer>
-        {filteredContacts.map((post) => (
+
+        {(posts.length < 1 && !isLoading) && (
+          <EmptyListContainer>
+            <img src={emptyBox} alt="Empty box" />
+
+            <p>
+              Você ainda não tem nenhuma notícia cadastrada!
+              Clique no botão <strong>”Criar Notícia”</strong> à cima para cadastrar a sua primeira!
+            </p>
+          </EmptyListContainer>
+        )}
+
+        {(posts.length > 0 && filteredPosts.length < 1) && (
+          <SearchNotFoundContainer>
+            <img src={postsNotFound} alt="No posts found" />
+
+            <span>
+              Nenhum resultado foi encontrado para <strong>{searchTerm}</strong>.
+            </span>
+          </SearchNotFoundContainer>
+        )}
+
+        {filteredPosts.length > 0 && filteredPosts.map((post) => (
           <Card key={post.id}>
             <div className="info">
               <div className="post-title">
@@ -99,7 +131,7 @@ export default function Home() {
               <Link to={`/edit/${post.id}`}>
                 <img src={edit} alt="Edit" />
               </Link>
-              <button type="button">
+              <button type="button" onClick={(event) => handleDelete(event, post.id)}>
                 <img src={trash} alt="Delete" />
               </button>
             </div>

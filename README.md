@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+### Vnda Frontend Challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+###### Desafio para demonstração de habilidades.
+> **Desenvolvedor:** Marcus Vinícius Santos da Rosa <br/>
+> **Data e hora de início:** 21/02/2022 às 7:00 <br/>
+> **Data e hora de término:** 23/08/2021 às 8:30
 
-## Available Scripts
+#### Escopo:
 
-In the project directory, you can run:
+- Website com foco em um painel de criação de posts.
 
-### `yarn start`
+#### Tecnologias:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React Router Dom para criação das rotas da página
+- Styled components para estilização dos componentes
+- React Hooks
+- Arquitetura utilizando Service layer para centralizar funcionalidades do CRUD
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Features:
 
-### `yarn test`
+- Criação de postagem.
+- Listagem de todas a spostagens
+- Visualização de postagem única
+- Edição de postagem
+- Deleção de postagem
+- Loaders de requisição
+- Filtro de pesquisa
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Etapas do desenvolvimento:
 
-### `yarn build`
+- Criação das páginas e componentes e estilização desktop
+- Aplicação da responsividade para tablet e mobile
+- Aplicação da lógica de criação, edição, deleção e listagem(CRUD)
+- Organização dos arquivos, performatização, adequações e melhorias
+- Revisão e entrega
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Para testar todas as funcionalidades
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Crie uma ou mais postagens
+- Veja a lista de postagens
+- Veja uma postgagem única
+- Edite uma postagem
+- Tente pesquisa pela postagem, pesquise errado propositalmente
+- Delete todas as postagens
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### Notas:
+> PARA RODAR O PROJETO:<br/>
+1 - Clonar e entrar na pasta do repositório;<br/>
+2 - Rodar 'npm i' ou 'yarn' dentro da pasta do projeto para baixar os pacotes necessários;<br/>
+3 - Por fim, no console do vsCode ou no cmd iniciar o projeto com o comando 'yarn start' e o servidor com o comando 'json-server --watch db.json --port 3001';<br/>
+O servidor precisa rodar na porta 3001 como mencionado acima *

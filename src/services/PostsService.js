@@ -6,7 +6,7 @@ class PostsService {
   }
 
   async listPosts() {
-    return this.httpClient.get('/posts');
+    return this.httpClient.get('/posts?_sort=id&_order=desc');
   }
 
   async getPost(id) {

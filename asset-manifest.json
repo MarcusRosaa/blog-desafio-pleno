@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/blog-desafio-pleno/static/css/main.1cf03476.css",
+    "main.js": "/blog-desafio-pleno/static/js/main.6aa764f2.js",
+    "static/media/empty-box.svg": "/blog-desafio-pleno/static/media/empty-box.af4ffcbea0d84f9d273cfc42234df2a4.svg",
+    "static/media/no-posts-found.svg": "/blog-desafio-pleno/static/media/no-posts-found.98f183dbec701bfc68488b62e4f90336.svg",
+    "index.html": "/blog-desafio-pleno/index.html",
+    "static/media/trash.svg": "/blog-desafio-pleno/static/media/trash.0881777b630bfc7c828d082134e48c71.svg",
+    "static/media/edit.svg": "/blog-desafio-pleno/static/media/edit.22e103bf15e81c7a0ad6f1e88b4e7593.svg",
+    "static/media/arrow.svg": "/blog-desafio-pleno/static/media/arrow.d794d180737b1b065a766e08868f1527.svg",
+    "main.1cf03476.css.map": "/blog-desafio-pleno/static/css/main.1cf03476.css.map",
+    "main.6aa764f2.js.map": "/blog-desafio-pleno/static/js/main.6aa764f2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1cf03476.css",
+    "static/js/main.6aa764f2.js"
+  ]
+}

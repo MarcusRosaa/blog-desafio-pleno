@@ -12,8 +12,6 @@ class HttpClient {
   }
 
   async post(path, newPost) {
-    console.log(`${this.baseURL}${path}`);
-
     const request = await fetch(
       `${this.baseURL}${path}`,
       {

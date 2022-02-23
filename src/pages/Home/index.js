@@ -76,7 +76,7 @@ export default function Home() {
           <strong>
             {filteredPosts.length}
             {' '}
-            {filteredPosts.length === 1 ? 'contato' : 'contatos'}
+            {filteredPosts.length === 1 ? 'postagem' : 'postagens'}
           </strong>
         )}
         <Navigation>

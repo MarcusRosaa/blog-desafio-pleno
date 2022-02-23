@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable react/jsx-one-expression-per-line */
 import { Link } from 'react-router-dom';
 import {
@@ -8,6 +9,8 @@ import {
 } from './styles';
 
 import Loader from '../../components/Loader';
+
+import convertToPlain from '../../utils/convertHtml';
 
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
@@ -41,13 +44,6 @@ export default function Home() {
   useEffect(() => {
     loadPosts();
   }, [loadPosts]);
-
-  function convertToPlain(html) {
-    const temDivElement = document.createElement('div');
-    temDivElement.innerHTML = html;
-
-    return temDivElement.textContent;
-  }
 
   function handleChangeSearchTerm(event) {
     setSearchTerm(event.target.value);
@@ -113,19 +109,21 @@ export default function Home() {
 
         {filteredPosts.length > 0 && filteredPosts.map((post) => (
           <Card key={post.id}>
-            <div className="info">
-              <div className="post-title">
-                <h2>{post.title}</h2>
-                <small>
-                  por
-                  {' '}
-                  {post.author}
-                </small>
+            <Link to={`/posts/${post.author_id}`}>
+              <div className="info">
+                <div className="post-title">
+                  <h2>{post.title}</h2>
+                  <small>
+                    por
+                    {' '}
+                    {post.author}
+                  </small>
+                </div>
+                <span
+                  dangerouslySetInnerHTML={convertToPlain(post.body_text)}
+                />
               </div>
-              <span>
-                {convertToPlain(post.body_text)}
-              </span>
-            </div>
+            </Link>
 
             <div className="actions">
               <Link to={`/edit/${post.id}`}>

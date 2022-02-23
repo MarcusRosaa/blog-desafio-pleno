@@ -13,6 +13,10 @@ class PostsService {
     return this.httpClient.get(`/posts/${id}`);
   }
 
+  async getPostByAuthor(authorId) {
+    return this.httpClient.get(`/posts?author_id=${authorId}`);
+  }
+
   async createPost(newPost) {
     return this.httpClient.post('/posts', newPost);
   }
